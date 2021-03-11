@@ -11,8 +11,7 @@ public static class Acronym
             .Select(c => (c == '-') ? ' ' : c)
             .Where(c => (('A' <= c && c <= 'Z') || c == ' '))
             .ToArray().convertToString()
-            .Split(' ')
-            .Where(s => s != string.Empty)
+            .Split(' ', StringSplitOptions.RemoveEmptyEntries)
             .Select(s => s[0])
             .ToArray().convertToString();
     }
