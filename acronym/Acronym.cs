@@ -6,8 +6,16 @@ public static class Acronym
 {
     public static string Abbreviate(string phrase)
     {
-        phrase = phrase.Replace("-", " ").ToUpper();
-        string normalized = Regex.Replace(phrase, "[^A-Z0-9 ]", string.Empty);
-        return new string(normalized.Split(" ").Where(s =>s != string.Empty).Select(s => s[0]).ToArray());
+        return phrase
+            .ToUpper()
+            .Select(c => (c == '-') ? ' ' : c)
+            .Where(c => (('A' <= c && c <= 'Z') || c == ' '))
+            .ToArray().convertToString()
+            .Split(' ')
+            .Where(s => s != string.Empty)
+            .Select(s => s[0])
+            .ToArray().convertToString();
     }
+
+    private static string convertToString(this char[] array) => new string(array);
 }
